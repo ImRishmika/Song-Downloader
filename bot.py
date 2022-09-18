@@ -27,47 +27,51 @@ Bot = Client(
 
 db = Database()
 
-START_TEXT = """ `Hai {}, 
-Am a YouTube Downloader Bot I Can Download Songs,Videos and Lyrics From YouTube and lyrics and  Would upload into Telegram. 
-Use /help Commands For More.`
+START_TEXT = """ 👋 Hey {}, 
+🔅 I m Song Downloader Bot I Can Download Songs,Videos and Lyrics From YouTube and lyrics and  Would upload into Telegram. 
+Use /help Commands For More.
 """
 
 CMDS_TEXT = """
-`Here It is The List of Commamds and Its usage.`
+💌 Here It is The List of Commamds and Its usage.
 
 - /song - This Command is For Downloading Songs. 
 - /lyrics - This Command is For Scrapping Lyrics of a Song. 
 - /video - This Command is For Downloading Videos. 
 - Also You Can search videos via inline Mode on Bot. 
 
-`Exmples For Both Those Commands.`
+📛 Exmples For Both Those Commands.
 
 - /song [song name] or [youTube link]. 
-  [/song Alone]. 
-- /lyrics [song name]. 
-  [/lyrics alone] 
-- /video [video name] or [YouTube link] 
-  [/video Alone] 
+  [/song Andakare Man]. 
+- /lyrics [Mosthare]. 
+  [/lyrics Mosthare] 
+- /video [manike Mage Hithe] or [YouTube link] 
+  [/video Manike Mage Hithe] 
   
 """
 
 ABOUT_TEXT = """
-- **Bot :** `Song Downloader`
-- **Creator :** [MR-JINN-OF-TG](https://Github.com/MR-JINN-OF-TG)
-- **Support :** [CLICK HERE](https://telegram.me/NAZRIYASUPPORT)
-- **Source :** [CLICK HERE](https://github.com/MR-JINN-OF-TG/Song-Downloader)
-- **Language :** [Python3](https://python.org)
-- **Library :** [Pyrogram](https://pyrogram.org)
-- **Server :** [Heroku](https://heroku.com)
+- 💭 Bot Name  : `Song Downloader Bot`
+- 👨‍💻 Creator : @ImRishmika
+- 🆘 Support : @EmoBotSupport
+- 📦 Source : Not Found
+- 💢 Language : [Python3](https://python.org)
+- 📚 Library : [Pyrogram](https://pyrogram.org)
+- 🧲 Server : [Heroku](https://heroku.com)
 
 """
 START_BUTTONS = InlineKeyboardMarkup(
         [[
-        InlineKeyboardButton('Support📕', url=f"https://telegram.me/{Config.SUPPORT}"), 
+        InlineKeyboardButton('Support 🆘', url=f"https://telegram.me/EmoBotSupport"), 
         InlineKeyboardButton(text="SEARCH🔎", switch_inline_query_current_chat="")
         ],[
         InlineKeyboardButton('HELP & USAGE⚙️', callback_data ='cmds') 
-        ],[
+        ],
+	[
+        InlineKeyboardButton('👨‍💻 Devoloper 👨‍💻', url=f"https://t.me/ImRishmika") 
+        ],
+        [
         InlineKeyboardButton('ABOUT📕', callback_data='about'),
         InlineKeyboardButton('CLOSE🔐', callback_data='close')
         ]]
@@ -187,7 +191,7 @@ def a(client, message):
             #     m.edit("Exceeded 30mins cap")
             #     return
 
-            performer = f"[@mwkBoTs]" 
+            performer = f"[@EmoBotDevoloper]" 
             thumb_name = f'thumb{message.message_id}.jpg'
             thumb = requests.get(thumbnail, allow_redirects=True)
             open(thumb_name, 'wb').write(thumb.content)
@@ -202,13 +206,14 @@ def a(client, message):
         )
         print(str(e))
         return
-    m.edit("`Bruh... Uploading... Please Wait...`")
+    m.edit("`📤 Uploading...`")
+    m.edit("`🔅 Please Wait...`")
     try:
         with yt_dlp.YoutubeDL(ydl_opts) as ydl:
             info_dict = ydl.extract_info(link, download=False)
             audio_file = ydl.prepare_filename(info_dict)
             ydl.process_info(info_dict)
-        rep = f'🎶 <b>Title:</b> <a href="{link}">{title}</a>\n⌚ <b>Duration:</b> <code>{duration}</code>\n📻 <b>Uploaded By:</b> <a href="https://t.me/mwklinks">MwK Song Bot</a>'
+        rep = f'🎶 <b>Title:</b> <a href="{link}">{title}</a>\n⌚ <b>Duration:</b> <code>{duration}</code>\n📻 <b>Uploaded By:</b> <a href="https://t.me/EM_Song_Bot">Emo Song Downloader Bot</a>'
         secmul, dur, dur_arr = 1, 0, duration.split(':')
         for i in range(len(dur_arr)-1, -1, -1):
             dur += (int(dur_arr[i]) * secmul)
@@ -216,7 +221,7 @@ def a(client, message):
         message.reply_audio(audio_file, caption=rep, parse_mode='HTML',quote=False, title=title, duration=dur, performer=performer, thumb=thumb_name)
         m.delete()
     except Exception as e:
-        m.edit('**An internal Error Occured, Report This @redbullfed!!**')
+        m.edit('**An internal Error Occured, Report This @EmoBotSupport!!**')
         print(e)
     try:
         os.remove(audio_file)
@@ -367,7 +372,7 @@ async def ytmusic(client, message: Message):
     urlissed = get_text(message)
 
     pablo = await client.send_message(
-        message.chat.id, f"`Finding {urlissed} From Youtube Servers. Please Wait.\n\n Uploading Slowed down Due to Heavy Traffic.!`"
+        message.chat.id, f"`Finding {urlissed} From Youtube Servers. Please Wait.\n\n Uploading Slowed down Due to Heavy Traffic.! 📛`"
     )
     if not urlissed:
         await pablo.edit("Invalid Command Syntax, Please Check Help Menu To Know More!")
@@ -430,7 +435,7 @@ async def ytmusic(client, message: Message):
         progress_args=(
             pablo,
             c_time,
-            f"`Uploading {urlissed} Song From YouTube Music!`",
+            f"`Uploading {urlissed} Song From YouTube Music!` 📤",
             file_stark,
         ),
     )
